@@ -1,0 +1,13 @@
+steps :
+  - name: 'python'
+    entrypoint : 'pip'
+    args : ['install','r','requirements.txt']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build','-t', 'gcr.io/$vishakha/password-checker','.']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$vishakha/password-checker']
+
+images:
+ - 'gcr.io/$vishakha/password-checker'
