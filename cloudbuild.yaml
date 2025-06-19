@@ -1,13 +1,24 @@
-steps :
+steps:
   - name: 'python'
-    entrypoint : 'pip'
-    args : ['install','r','requirements.txt']
+    entrypoint: 'pip'
+    args: ['install', '-r', 'requirements.txt']
 
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build','-t', 'gcr.io/$vishakha/password-checker','.']
+    args: ['build', '-t', 'gcr.io/vishakha/password-checker', '.']
 
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/$vishakha/password-checker']
+    args: ['push', 'gcr.io/vishakha/password-checker']
+
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'gcloud'
+    args:
+      [
+        'run', 'deploy', 'password-checker',
+        '--image', 'gcr.io/vishakha/password-checker',
+        '--region', 'us-central1',
+        '--platform', 'managed',
+        '--allow-unauthenticated'
+      ]
 
 images:
- - 'gcr.io/$vishakha/password-checker'
+  - 'gcr.io/vishakha/password-checker'
