@@ -5,7 +5,8 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', ' asia-south1-docker.pkg.dev/vishakha-403211/vishnu/password-checker:latest']
 
-  
+options:
+  logging: CLOUD_LOGGING_ONLY
 
 images:
   -  asia-south1-docker.pkg.dev/vishakha-403211/vishnu/password-checker:latest
